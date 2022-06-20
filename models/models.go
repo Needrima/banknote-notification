@@ -1,6 +1,6 @@
 package models
 
-type NotificationObject struct {
+type Notification struct {
 	Reference string `json:"reference"`
 	Channel   string `json:"channel" binding:"required"`
 	Type      string `json:"type" binding:"required,eq=SCHEDULED|eq=INSTANT"`
