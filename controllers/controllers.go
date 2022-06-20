@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"banknote-notification-service/models"
 	"errors"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,10 +20,21 @@ var (
 	SMS_SERVICE_ERROR           = errors.New("An error occurred while sending SMS message.")
 	INVALID_SCHEDULE_DATE_ERROR = errors.New("You cannot schedule a task in the past. You must provide a future date")
 	NO_PRINCIPAL                = errors.New("Principal identifier NOT provided")
+
+	TimeFormatLayout = "2006-01-02T15:04:05Z"
 )
 
 func SendNotification() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		var data models.NotificationObject
+		if err := c.BindJSON(&data); err != nil {
+			log.Println("error:", err)
+			c.JSON(http.StatusBadRequest, gin.H{
+				"errors": []string{VALIDATION_ERROR.Error(), DUPLICATE_ENTRY_ERROR.Error()},
+			})
+			return
+		}
+
 		c.JSON(http.StatusOK, gin.H{
 			"message": "notification sent",
 		})
