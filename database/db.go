@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// InitCollection intitalizes the database and returned the collection with name "name"
 func InitCollection(name string) *mongo.Collection {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("error loading environmental variables")
