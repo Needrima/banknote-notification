@@ -65,7 +65,7 @@ func (n *NotificationHandler) SendNotification() gin.HandlerFunc {
 				return
 			}
 
-			// update reference, send time, status 
+			// update reference, send time, status
 			notification.Reference = uuid.NewV4().String()
 			sendTime := time.Now()
 			notification.SentAt = utils.ParseTimeToString(sendTime)
@@ -162,7 +162,7 @@ func (n *NotificationHandler) SendNotification() gin.HandlerFunc {
 func (n *NotificationHandler) GetNotificationStatus() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		reference := c.Param("reference")
-	
+
 		result := n.Collection.FindOne(context.TODO(), bson.M{"reference": reference})
 		if result.Err() == mongo.ErrNoDocuments {
 			n.Logger.Println("no document with provided reference:", result.Err())

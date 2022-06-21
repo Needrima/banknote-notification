@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// format layout for time. see package time in the standard library
 const TimeFormatLayout = "2006-01-02T15:04:05Z"
 
 // ParseTimeStringToTime converts a timestring to time in RFC3339 format.

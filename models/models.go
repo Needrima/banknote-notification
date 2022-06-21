@@ -8,7 +8,7 @@ type Notification struct {
 	From      string `json:"from" bson:"from" binding:"required"`
 	To        string `json:"to" bson:"to" binding:"required"`
 	Message   string `json:"message" bson:"message" binding:"required"`
-	SendAt    string `json:"send_at" bson:"send_at" binding:"required"`
-	SentAt    string `json:"sent_at" bson:"sent_at"`
+	SendAt    string `json:"send_at" bson:"send_at" binding:"required"` // comes in RFC3339 format
+	SentAt    string `json:"sent_at" bson:"sent_at"`                    // comes in RFC3339 format
 	Status    string `json:"status" bson:"status"`
 }
