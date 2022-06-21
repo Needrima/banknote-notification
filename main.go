@@ -2,6 +2,7 @@ package main
 
 import (
 	"banknote-notification-service/database"
+	"banknote-notification-service/handler"
 	"banknote-notification-service/middlewares"
 	"banknote-notification-service/routes"
 	"log"
@@ -9,7 +10,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var (
@@ -27,7 +27,7 @@ func main() {
 	router := gin.Default()
 	router.Use(middlewares.CORSMiddleware())
 
-	controller := controllers.New(logger, collection)
+	controller := handler.New(logger, collection)
 
 	routes.SetupRoutes(router, controller)
 

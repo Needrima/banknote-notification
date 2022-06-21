@@ -1,13 +1,13 @@
 package routes
 
 import (
-	"banknote-notification-service/controllers"
+	"banknote-notification-service/handler"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(router *gin.Engine, controller *controllers.NotificationController) {
-	router.POST("/notification", controller.SendNotification())
-	router.GET("/notification/:reference/status", controller.GetNotificationStatus())
-	router.GET("/notification/:reference", controller.GetNotificationByReference())
-	router.GET("/notification/page/:page", controller.GetScheduledNotificationList())
+func SetupRoutes(router *gin.Engine, handler *handler.NotificationHandler) {
+	router.POST("/notification", handler.SendNotification())
+	router.GET("/notification/:reference/status", handler.GetNotificationStatus())
+	router.GET("/notification/:reference", handler.GetNotificationByReference())
+	router.GET("/notification/page/:page", handler.GetScheduledNotificationList())
 }
