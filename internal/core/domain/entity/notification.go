@@ -1,4 +1,4 @@
-package models
+package entity
 
 type Notification struct {
 	Reference string `json:"reference" bson:"reference"`

@@ -1,9 +1,4 @@
-package utils
-
-import (
-// "github.com/sendgrid/sendgrid-go"
-// "github.com/sendgrid/sendgrid-go/helpers/mail"
-)
+package helper
 
 // SendMail sends notification name from "from" to "to" using twilio's sendgrid API
 func SendMail(from, to, message string) error {
