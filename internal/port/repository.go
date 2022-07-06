@@ -8,3 +8,7 @@ type NotificationRepository interface {
 	GetNotificationByRef(CountryCode string) (interface{}, error)
 	GetNotificationList(page string) (interface{}, error)
 }
+
+type ThirdPartyRepository interface {
+	SendMail(notification entity.Notification) error
+}

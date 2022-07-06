@@ -8,3 +8,7 @@ type NotificationService interface {
 	GetNotificationByRef(ref string) (interface{}, error)
 	GetNotificationList(page string) (interface{}, error)
 }
+
+type ThirdPartyService interface {
+	SendMail(notification entity.Notification) error
+}
