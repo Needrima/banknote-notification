@@ -7,8 +7,5 @@ type NotificationRepository interface {
 	GetNotificationStatus(ref string) (interface{}, error)
 	GetNotificationByRef(CountryCode string) (interface{}, error)
 	GetNotificationList(page string) (interface{}, error)
-}
-
-type ThirdPartyRepository interface {
-	SendMail(notification entity.Notification) error
+	UpdateNotification(notification entity.Notification) (interface{}, error)
 }

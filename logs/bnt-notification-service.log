@@ -336,3 +336,24 @@
 {"@timestamp":"2022-07-06T20:41:17+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Redis Initialized!"}
 {"@timestamp":"2022-07-06T20:41:17+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Configuring Routes!"}
 {"@timestamp":"2022-07-06T20:41:17+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Started bnt-notification-service on http://localhost:20001 in 0s"}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Initializing Mongo!"}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Establishing mongoDB connection with given credentials..."}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Connecting to MongoDB..."}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Confirming MongoDB Connection..."}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Establishing Database collections and indexes..."}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"MongoDB Initialized!"}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Redis Initialized!"}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Configuring Routes!"}
+{"@timestamp":"2022-07-10T11:36:50+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Started bnt-notification-service on http://localhost:20001 in 0s"}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Initializing Mongo!"}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Establishing mongoDB connection with given credentials..."}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Connecting to MongoDB..."}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Confirming MongoDB Connection..."}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Establishing Database collections and indexes..."}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"MongoDB Initialized!"}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Redis Initialized!"}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Configuring Routes!"}
+{"@timestamp":"2022-07-10T11:55:22+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Started bnt-notification-service on http://localhost:20001 in 0s"}
+{"@timestamp":"2022-07-10T11:57:33+01:00","level":"INFO","app_name":"bnt-notification-service","message":"Persisting notification configurations with reference: b9e96d34-f77d-4858-9b68-edd0afbc302b"}
+{"@timestamp":"2022-07-10T11:57:33+01:00","version":"1","level":"INFO","level_value":0,"statusCode":"201","pay_load":"","message":"Created : {\"reference\":\"b9e96d34-f77d-4858-9b68-edd0afbc302b\"} ... ","logger_name":"","app_name":"bnt-notification-service","path":"/notification","method":"POST","X-Barafiri-Correlation-Id":"8e737514-070f-4abb-9d5a-b582a6954394","User-Agent":"PostmanRuntime/7.29.0","X-Barafiri-Response-Time":"0s","X-Barafiri-Application-Host":"localhost:20001","X-Forwarded-For":""}
+{"@timestamp":"2022-07-10T11:59:59+01:00","level":"INFO","app_name":"bnt-notification-service","message":"updating scheduled notification with reference b9e96d34-f77d-4858-9b68-edd0afbc302b"}
