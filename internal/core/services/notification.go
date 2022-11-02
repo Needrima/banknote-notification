@@ -34,7 +34,7 @@ func (service *notificationService) CreateNotification(notification entity.Notif
 	switch notification.Type {
 	case "INSTANT":
 		// send mail immediately
-		if err := helper.SendMail(notification.From, notification.To, notification.Message); err != nil {
+		if err := helper.SendMail(notification.To, notification.Message); err != nil {
 			helper.LogEvent("INFO", "sending mail for instant notification failed")
 			return nil, helper.ErrorMessage(helper.ServerError, "something went wrong")
 		}
@@ -72,7 +72,7 @@ func (service *notificationService) CreateNotification(notification entity.Notif
 			select {
 			case <-ticker.C:
 				// send notification mail
-				if err := helper.SendMail(notification.From, notification.To, notification.Message); err != nil {
+				if err := helper.SendMail(notification.To, notification.Message); err != nil {
 					helper.LogEvent("INFO", fmt.Sprintf("sending mail for scheduled notification with reference %v: %v", notification.Reference, err.Error()))
 					return
 				}

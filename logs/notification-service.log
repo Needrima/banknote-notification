@@ -80,3 +80,21 @@
 {"@timestamp":"2022-11-01T12:06:47+01:00","level":"INFO","app_name":"notification-service","message":"Retrieving all notification configuration entries..."}
 {"@timestamp":"2022-11-01T12:06:47+01:00","level":"INFO","app_name":"notification-service","message":"There are no results in this collection..."}
 {"@timestamp":"2022-11-01T12:06:47+01:00","version":"1","level":"INFO","level_value":0,"statusCode":"200","pay_load":"{\r\n\t\"channel\": \"EMAIL\",\r\n\t\"type\": \"SCHEDULED\", \r\n\t\"subject\": \"MAIL SUBJECT\",\r\n\t\"from\": \"oyebodeamirdeen@gmail.com\",\r\n\t\"to\": \"oyebodeamirdeen@gmail.com\",\r\n\t\"message\": \"email message\",\r\n\t\"send_at\": \"2022-11-01T11:55:00\"\r\n}","message":"OK : [] ... ","logger_name":"","app_name":"notification-service","path":"/notification/page/2","method":"GET","X-Barafiri-Correlation-Id":"2e09a7a0-2598-4e03-88a3-aad789899434","User-Agent":"PostmanRuntime/7.29.2","X-Barafiri-Response-Time":"0s","X-Barafiri-Application-Host":"localhost:20001","X-Forwarded-For":""}
+{"@timestamp":"2022-11-02T11:47:36+01:00","level":"INFO","app_name":"notification-service","message":"Initializing Mongo!"}
+{"@timestamp":"2022-11-02T11:47:37+01:00","level":"INFO","app_name":"notification-service","message":"Establishing mongoDB connection with given credentials..."}
+{"@timestamp":"2022-11-02T11:47:37+01:00","level":"INFO","app_name":"notification-service","message":"Connecting to MongoDB..."}
+{"@timestamp":"2022-11-02T11:47:37+01:00","level":"INFO","app_name":"notification-service","message":"Confirming MongoDB Connection..."}
+{"@timestamp":"2022-11-02T11:47:39+01:00","level":"ERROR","app_name":"notification-service","message":{"error_reference":"9b226f1a-4fdb-4afa-8af0-6ca59125fe62","timestamp":"2022-11-02T11:47:39+01:00","errors":[{"code":"MONGO_DB_ERROR","message":"server selection error: server selection timeout, current topology: { Type: Single, Servers: [{ Addr: localhost:27019, Type: Unknown }, ] }","source":"notification-service"}]}}
+{"@timestamp":"2022-11-02T11:47:39+01:00","level":"ERROR","app_name":"notification-service","message":"MongoDB database Connection Error: server selection error: server selection timeout, current topology: { Type: Single, Servers: [{ Addr: localhost:27019, Type: Unknown }, ] }"}
+
+{"@timestamp":"2022-11-02T10:54:00+01:00","level":"INFO","app_name":"notification-service","message":"Initializing Mongo!"}
+{"@timestamp":"2022-11-02T10:54:00+01:00","level":"INFO","app_name":"notification-service","message":"Establishing mongoDB connection with given credentials..."}
+{"@timestamp":"2022-11-02T10:54:00+01:00","level":"INFO","app_name":"notification-service","message":"Connecting to MongoDB..."}
+{"@timestamp":"2022-11-02T10:54:00+01:00","level":"INFO","app_name":"notification-service","message":"Confirming MongoDB Connection..."}
+{"@timestamp":"2022-11-02T10:54:02+01:00","level":"INFO","app_name":"notification-service","message":"Establishing Database collections and indexes..."}
+{"@timestamp":"2022-11-02T10:54:02+01:00","level":"INFO","app_name":"notification-service","message":"MongoDB Initialized!"}
+{"@timestamp":"2022-11-02T10:54:02+01:00","level":"INFO","app_name":"notification-service","message":"Redis Initialized!"}
+{"@timestamp":"2022-11-02T10:54:02+01:00","level":"INFO","app_name":"notification-service","message":"Configuring Routes!"}
+{"@timestamp":"2022-11-02T10:54:02+01:00","level":"INFO","app_name":"notification-service","message":"Started notification-service on http://localhost:20001 in 997.8µs"}
+{"@timestamp":"2022-11-02T10:54:50+01:00","level":"INFO","app_name":"notification-service","message":"Persisting notification configurations with reference: a2bb48fd-9346-4b4b-a110-486a6a870105"}
+{"@timestamp":"2022-11-02T10:54:50+01:00","version":"1","level":"INFO","level_value":0,"statusCode":"201","pay_load":"","message":"Created : {\"reference\":\"a2bb48fd-9346-4b4b-a110-486a6a870105\"} ... ","logger_name":"","app_name":"notification-service","path":"/notification","method":"POST","X-Barafiri-Correlation-Id":"fbe80ea9-9926-4f08-9040-49ca5ede072f","User-Agent":"PostmanRuntime/7.29.2","X-Barafiri-Response-Time":"0s","X-Barafiri-Application-Host":"localhost:20001","X-Forwarded-For":""}
