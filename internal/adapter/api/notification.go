@@ -1,9 +1,10 @@
 package api
 
 import (
-	"bnt/bnt-notification-service/internal/core/domain/entity"
-	"bnt/bnt-notification-service/internal/core/helper"
+	"log"
 	"net/http"
+	"notification-service/internal/core/domain/entity"
+	"notification-service/internal/core/helper"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,6 +55,7 @@ func (hdl *HTTPHandler) CreateNotification(c *gin.Context) {
 }
 
 func (hdl *HTTPHandler) GetNotificationStatus(c *gin.Context) {
+	log.Println(c.Param("reference"))
 	status, err := hdl.notificationService.GetNotificationStatus(c.Param("reference"))
 
 	if err != nil {

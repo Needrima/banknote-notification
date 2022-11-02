@@ -1,7 +1,7 @@
 package api
 
 import (
-	ports "bnt/bnt-notification-service/internal/port"
+	ports "notification-service/internal/port"
 )
 
 type HTTPHandler struct {

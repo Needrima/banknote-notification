@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"bnt/bnt-notification-service/internal/core/domain/entity"
-	"bnt/bnt-notification-service/internal/core/helper"
-	ports "bnt/bnt-notification-service/internal/port"
 	"context"
+	"notification-service/internal/core/domain/entity"
+	"notification-service/internal/core/helper"
+	ports "notification-service/internal/port"
 	// "fmt"
 	// "time"
 

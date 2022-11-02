@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"bnt/bnt-notification-service/internal/adapter/api"
-	"bnt/bnt-notification-service/internal/core/helper"
-	"bnt/bnt-notification-service/internal/core/middleware"
-	"bnt/bnt-notification-service/internal/core/services"
-	ports "bnt/bnt-notification-service/internal/port"
 	"github.com/gin-gonic/gin"
+	"notification-service/internal/adapter/api"
+	"notification-service/internal/core/helper"
+	"notification-service/internal/core/middleware"
+	"notification-service/internal/core/services"
+	ports "notification-service/internal/port"
 )
 
 func SetupRouter(notificationRepository ports.NotificationRepository) *gin.Engine {

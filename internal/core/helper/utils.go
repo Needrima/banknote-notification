@@ -20,7 +20,7 @@ func ParseTimeToString(t time.Time) string {
 	return timeStr[:len(timeStr)-6]   // "2022-06-21T11:43:24"
 }
 
-// PeriodToScheduledTime calculates the period to the between the current local time and scheduledTime and
+// PeriodToScheduledTime calculates the period between the current local time and scheduledTime and
 // returns the value in seconds. It subtracts an hour (3600 seconds) from the elapsed time before returning the result
 // because the elapsed time is an hour ahead of local time.
 func PeriodToScheduledTime(scheduledTime time.Time) float64 {

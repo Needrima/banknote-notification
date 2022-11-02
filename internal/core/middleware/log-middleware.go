@@ -1,13 +1,13 @@
 package middleware
 
 import (
-	"bnt/bnt-notification-service/internal/core/helper"
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"log"
 	"net/http"
+	"notification-service/internal/core/helper"
 	"strconv"
 	"time"
 )

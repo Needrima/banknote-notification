@@ -1,6 +1,6 @@
 package ports
 
-import "bnt/bnt-notification-service/internal/core/domain/entity"
+import "notification-service/internal/core/domain/entity"
 
 type NotificationRepository interface {
 	CreateNotification(notification entity.Notification) (interface{}, error)

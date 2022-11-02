@@ -1,11 +1,11 @@
 package services
 
 import (
-	"bnt/bnt-notification-service/internal/core/domain/entity"
-	"bnt/bnt-notification-service/internal/core/helper"
-	ports "bnt/bnt-notification-service/internal/port"
 	"fmt"
 	"github.com/google/uuid"
+	"notification-service/internal/core/domain/entity"
+	"notification-service/internal/core/helper"
+	ports "notification-service/internal/port"
 	"time"
 )
 
@@ -65,7 +65,7 @@ func (service *notificationService) CreateNotification(notification entity.Notif
 		// set status to pending
 		notification.Status = "PENDING"
 
-		// set a ticker and launch a goroutine to check if scheduled time has elapsed and launch a
+		// launch a goroutine to check if scheduled time has elapsed and
 		// update the database once the schedule time reaches
 		ticker := time.NewTicker(time.Second * time.Duration(sendTime))
 		go func() {

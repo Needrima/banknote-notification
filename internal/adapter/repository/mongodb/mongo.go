@@ -1,13 +1,14 @@
 package repository
 
 import (
-	"bnt/bnt-notification-service/internal/core/helper"
-	ports "bnt/bnt-notification-service/internal/port"
 	"context"
 	"fmt"
+	"notification-service/internal/core/helper"
+	ports "notification-service/internal/port"
+	"strconv"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"strconv"
 )
 
 type MongoRepositories struct {

@@ -28,7 +28,7 @@ type ConfigStruct struct {
 
 func LoadEnv(path string) (config ConfigStruct, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("bnt-notification-service")
+	viper.SetConfigName("notification-service")
 	viper.SetConfigType("env")
 
 	viper.AutomaticEnv()
