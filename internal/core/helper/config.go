@@ -24,6 +24,10 @@ type ConfigStruct struct {
 	RedisHost          string `mapstructure:"redis_host"`
 	RedisPort          string `mapstructure:"redis_port"`
 	PageLimit          string `mapstructure:"page_limit"`
+	SMTPHost           string `mapstructure:"smtp_host"`
+	SMTPPort           string `mapstructure:"smtp_port"`
+	SMTPUsername       string `mapstructure:"smtp_username"`
+	SMTPPassword       string `mapstructure:"smtp_password"`
 }
 
 func LoadEnv(path string) (config ConfigStruct, err error) {
