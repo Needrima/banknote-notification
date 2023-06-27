@@ -3,16 +3,19 @@ package middleware
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	"io/ioutil"
 	"log"
 	"net/http"
-	"notification-service/internal/core/helper"
 	"strconv"
 	"time"
+	configuration "walls-notification-service/internal/core/helper/configuration-helper"
+	errorhelper "walls-notification-service/internal/core/helper/error-helper"
+	logger "walls-notification-service/internal/core/helper/log-helper"
+
+	"github.com/gin-gonic/gin"
 )
 
-func CreateHeader(writer *helper.BodyLogWriter, key string, value string) interface{} {
+func CreateHeader(writer *logger.BodyLogWriter, key string, value string) interface{} {
 	val, ok := writer.Header()[key]
 	if !ok {
 		writer.Header().Add(key, value)
@@ -22,29 +25,38 @@ func CreateHeader(writer *helper.BodyLogWriter, key string, value string) interf
 	}
 }
 
-func LogRequest(c *gin.Context) {
-	blw := &helper.BodyLogWriter{Body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
-	correlationId := uuid.New().String()
-	CreateHeader(blw, "x-correlation-id", correlationId)
-	c.Writer = blw
-	c.Next()
-	statusCode := c.Writer.Status()
-	level := "INFO"
-	if statusCode >= 400 {
-		level = "ERROR"
-	}
-
+func TruncateResponse(response string) string {
 	count := 0
 	truncatedResponse := ""
-	for _, char := range blw.Body.String() {
+	for _, char := range response {
 		if count >= 200 {
 			break
 		}
 		truncatedResponse += string(char)
 		count++
 	}
-	payload, _ := c.GetRawData()
-	data, err := json.Marshal(&helper.LogStruct{
+	return truncatedResponse
+}
+
+func LogRequest(c *gin.Context) {
+
+	var payload []byte
+	var level string = "INFO"
+
+	if c.Request.Body != nil {
+		payload, _ = ioutil.ReadAll(c.Request.Body)
+	}
+	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(payload))
+	blw := &logger.BodyLogWriter{Body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
+	c.Writer = blw
+	c.Next()
+
+	statusCode := c.Writer.Status()
+	if statusCode >= 400 {
+		level = "ERROR"
+	}
+
+	data, err := json.Marshal(&logger.LogStruct{
 		Method:          c.Request.Method,
 		Level:           level,
 		StatusCode:      strconv.Itoa(statusCode),
@@ -53,16 +65,16 @@ func LogRequest(c *gin.Context) {
 		ForwardedFor:    c.Request.Header.Get("X-Forwarded-For"),
 		ResponseTime:    time.Since(time.Now()).String(),
 		PayLoad:         string(payload),
-		Message:         http.StatusText(statusCode) + " : " + truncatedResponse + " ... ",
+		Message:         http.StatusText(statusCode) + " : " + TruncateResponse(blw.Body.String()) + " ... ",
 		Version:         "1",
-		CorrelationId:   correlationId,
-		AppName:         helper.Config.ServiceName,
+		CorrelationId:   c.Request.Header.Get("X-Correlation-ID"),
+		AppName:         configuration.ServiceConfiguration.ServiceName,
 		ApplicationHost: c.Request.Host,
 		LoggerName:      "",
 		TimeStamp:       time.Now().Format(time.RFC3339),
 	})
 	if err != nil {
-		helper.LogEvent("ERROR", helper.ErrorMessage(helper.LogError, err.Error()))
+		logger.LogEvent("ERROR", errorhelper.ErrorMessage(errorhelper.LogError, err.Error()))
 		log.Fatal(err)
 	}
 	log.Printf("%s\n", data)

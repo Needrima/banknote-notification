@@ -1,10 +1,12 @@
 package ports
 
-import "notification-service/internal/core/domain/entity"
+import (
+	"walls-notification-service/internal/core/domain/dto"
+)
 
 type NotificationService interface {
-	CreateNotification(notification entity.Notification) (interface{}, error)
-	GetNotificationStatus(ref string) (interface{}, error)
-	GetNotificationByRef(ref string) (interface{}, error)
-	GetNotificationList(page string) (interface{}, error)
+	CreateNotification(createNotificationDto dto.CreateNotification) (interface{}, error)
+	GetNotificationByReference(reference string) (interface{}, error)
+	GetNotificationByDeviceReference(device_reference string, page string) (interface{}, error)
+	GetNotificationByUserReference(user_reference string, page string) (interface{}, error)
 }

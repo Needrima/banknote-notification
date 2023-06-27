@@ -1,14 +1,18 @@
 package entity
 
+import "walls-notification-service/internal/core/domain/shared"
+
 type Notification struct {
-	Reference string `json:"reference" bson:"reference"`
-	Channel   string `json:"channel" bson:"channel" binding:"required,eq=EMAIL"`
-	Type      string `json:"type" bson:"type" binding:"required,eq=SCHEDULED|eq=INSTANT"`
-	Subject   string `json:"subject" bson:"subject" binding:"required"`
-	To        string `json:"to" bson:"to" binding:"required"`
-	From        string `json:"from" bson:"from" binding:"required"`
-	Message   string `json:"message" bson:"message" binding:"required"`
-	SendAt    string `json:"send_at" bson:"send_at" binding:"required"` // comes in RFC3339 format E.G 2022-11-02T23:47:00
-	SentAt    string `json:"sent_at" bson:"sent_at"`                    // comes in RFC3339 format E.G 2022-11-02T23:47:00
-	Status    string `json:"status" bson:"status"`
+	Reference       string                    `json:"reference" bson:"reference"`
+	UserReference   string                    `json:"user_reference" bson:"user_reference"`
+	DeviceReference string                    `json:"device_reference" bson:"device_reference"`
+	Contact         string                    `json:"contact" bson:"contact"`
+	Channel         shared.Channel            `json:"channel" bson:"channel"`
+	Type            shared.NotificationType   `json:"notification_type" bson:"notification_type"`
+	Subject         string                    `json:"subject" bson:"subject"`
+	MessageBody     string                    `json:"message_body" bson:"message_body"`
+	NotifiedBy      string                    `json:"notified_by" bson:"notified_by"`
+	NotifyOn        string                    `json:"notify_on" bson:"notify_on"`
+	NotifiedOn      string                    `json:"notified_on" bson:"notified_on"`
+	Status          shared.NotificationStatus `json:"status" bson:"status"`
 }
