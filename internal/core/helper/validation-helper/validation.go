@@ -13,10 +13,15 @@ func ValidateValidChannel(fl validator.FieldLevel) bool {
 	// Check if the channel is either Phone or Email
 	return channel == shared.Sms || channel == shared.Email
 }
+func ValidateValidType(fl validator.FieldLevel) bool {
+	notificationtype := fl.Field().Interface().(shared.NotificationType)
 
+	// Check if the channel is either Phone or Email
+	return notificationtype == shared.Instant || notificationtype == shared.Scheduled
+}
 func ValidateValidContact(fl validator.FieldLevel) bool {
 	contact := fl.Field().String()
-	channel := fl.Parent().Elem().FieldByName("Channel").Interface().(shared.Channel)
+	channel := fl.Parent().FieldByName("Channel").Interface().(shared.Channel)
 
 	// Regular expression patterns for email and phone number
 	emailPattern := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
@@ -33,4 +38,16 @@ func ValidateValidContact(fl validator.FieldLevel) bool {
 	}
 
 	return false
+}
+func ValidateGUID(fl validator.FieldLevel) bool {
+	guid := fl.Field().String()
+
+	// Define the regular expression pattern for a GUID-like string
+	// Adjust the pattern according to the specific format you expect
+	pattern := `^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
+
+	// Match the GUID string against the regular expression pattern
+	match, _ := regexp.MatchString(pattern, guid)
+
+	return match
 }

@@ -2,13 +2,15 @@ package services
 
 import (
 	"context"
+	"net/smtp"
 
 	"time"
-	publisher "walls-notification-service/internal/adapter/events/publisher"
-	messenger "walls-notification-service/internal/adapter/twilio-events"
+	publisher "walls-notification-service/internal/adapter/event/publisher"
+	sender "walls-notification-service/internal/adapter/sender"
 	"walls-notification-service/internal/core/domain/dto"
 	event "walls-notification-service/internal/core/domain/event/eto"
 	"walls-notification-service/internal/core/domain/mapper"
+	"walls-notification-service/internal/core/domain/shared"
 	configuration "walls-notification-service/internal/core/helper/configuration-helper"
 	eto "walls-notification-service/internal/core/helper/event-helper/eto"
 	logger "walls-notification-service/internal/core/helper/log-helper"
@@ -17,8 +19,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"
-	"github.com/sendgrid/sendgrid-go"
-	"github.com/twilio/twilio-go"
 )
 
 var NotificationService = &notificationService{}
@@ -26,17 +26,14 @@ var NotificationService = &notificationService{}
 type notificationService struct {
 	notificationRepository ports.NotificationRepository
 	redisClient            *redis.Client
-	smsClient              *twilio.RestClient
-	emailClient            *sendgrid.Client
+	smtpClient             *smtp.Client
 }
 
-func NewNotification(notificationRepository ports.NotificationRepository, redisClient *redis.Client,
-	smsClient *twilio.RestClient, emailClient *sendgrid.Client) *notificationService {
+func NewNotification(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client) *notificationService {
 	NotificationService = &notificationService{
 		notificationRepository: notificationRepository,
 		redisClient:            redisClient,
-		smsClient:              smsClient,
-		emailClient:            emailClient,
+		smtpClient:             smtpClient,
 	}
 	return NotificationService
 }
@@ -44,7 +41,7 @@ func NewNotification(notificationRepository ports.NotificationRepository, redisC
 func (service *notificationService) CreateNotification(createNotificationDto dto.CreateNotification) (interface{}, error) {
 	logger.LogEvent("INFO", "Creating Notification")
 
-	mappedNotification := mapper.MapCreateDto(createNotificationDto)
+	notification := mapper.MapCreateDto(createNotificationDto)
 
 	notificationCreatedEvent := event.NotificationCreatedEvent{
 		Event: eto.Event{
@@ -54,23 +51,23 @@ func (service *notificationService) CreateNotification(createNotificationDto dto
 			EventType:          "notificationcreatedevent",
 			EventSource:        configuration.ServiceConfiguration.ServiceName,
 			EventUserReference: createNotificationDto.UserReference,
-			EventData:          mappedNotification,
+			EventData:          notification,
 		},
 	}
-
 	//saves to database
-	response, err := service.notificationRepository.CreateNotification(mappedNotification)
+	response, err:=service.notificationRepository.CreateNotification(notification) 
 
-	if err != nil {
+	if(err != nil){
 		return nil, err
 	}
 
-	// send sms using twilio or email using sendgrid
-	messenger := messenger.NewMessenger(service.smsClient, service.emailClient)
-	if err := messenger.SendNotificationMessage(mappedNotification, service.notificationRepository.UpdateNotifcation); err != nil {
-		return nil, err
-	}
-
+	if notification.Channel == shared.Email {
+		//send to gmail smtp
+		emailSender:=sender.NewEmailNotification(service.smtpClient)
+		emailSender.SendEmailNotification(notification)
+	} //else if notification.Channel == shared.sms
+	
+	
 	//publish to redis channel
 	eventPublisher := publisher.NewPublisher(service.redisClient)
 	ctx := context.Background()
@@ -79,6 +76,7 @@ func (service *notificationService) CreateNotification(createNotificationDto dto
 	return response, err
 
 }
+
 
 func (service *notificationService) GetNotificationByDeviceReference(device_reference string, page string) (interface{}, error) {
 	logger.LogEvent("INFO", "Getting the notification list for device "+device_reference)

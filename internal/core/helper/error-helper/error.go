@@ -50,8 +50,8 @@ func ErrorArrayToError(errorBody []validator.FieldError) error {
 	errorResponse.ErrorType = ValidationError
 	errorResponse.Code = CustomError[ValidationError]
 	for _, value := range errorBody {
-		body := ErrorBody{Message: value.Error()}
-		errorResponse.Errors = append(errorResponse.Errors, body)
+		body := ErrorBody{value.Error()}
+		errorResponse.Errors = append(errorResponse.Errors, body.Message)
 	}
 	return errorResponse
 }
@@ -61,13 +61,13 @@ func ErrorMessage(errorType string, message string) error {
 	errorResponse.ErrorReference = uuid.New()
 	errorResponse.ErrorType = errorType
 	errorResponse.Code = CustomError[errorType]
-	errorResponse.Errors = append(errorResponse.Errors, ErrorBody{Message: message})
+	errorResponse.Errors = append(errorResponse.Errors, message)
 	return errorResponse
 }
 
 type ErrorBody struct {
 	//Code    string      `json:"code"`
-	Message interface{} `json:"message"`
+	Message string`json:"message"`
 	//Source  string      `json:"source"`
 }
 type ErrorResponse struct {
@@ -75,5 +75,5 @@ type ErrorResponse struct {
 	ErrorType      string      `json:"error_type"`
 	TimeStamp      string      `json:"timestamp"`
 	Code           int         `json:"code"`
-	Errors         []ErrorBody `json:"errors"`
+	Errors         []string `json:"errors"`
 }

@@ -34,6 +34,8 @@ func (hdl *HTTPHandler) CreateNotification(c *gin.Context) {
 	c.JSON(201, gin.H{"reference": notification})
 }
 
+
+
 // @Summary Get Notification list by user device reference
 // @Description Retrieve the Notification list for a user's device
 // @Tags Notification
@@ -54,6 +56,7 @@ func (hdl *HTTPHandler) GetNotificationByDeviceReference(c *gin.Context) {
 
 	c.JSON(200, notifications)
 }
+
 
 // @Summary Get Notification list by user reference
 // @Description Retrieve the Notification list for a user

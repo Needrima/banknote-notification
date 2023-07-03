@@ -3,13 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"time"
-
 	"walls-notification-service/internal/core/domain/dto"
 	"walls-notification-service/internal/core/domain/shared"
 	"walls-notification-service/internal/core/services"
-
-	configuration "walls-notification-service/internal/core/helper/configuration-helper"
 	eto "walls-notification-service/internal/core/helper/event-helper/eto"
 	ports "walls-notification-service/internal/port"
 )
@@ -37,20 +33,19 @@ func OtpCreatedEventHandler(event interface{}, notificationRepository ports.Noti
 	device := otpCreatedEvent.EventData.(map[string]interface{})["Device"].(map[string]interface{})
 	device_reference := device["Reference"]
 
+
 	createNotificationDto := dto.CreateNotification{
-		UserReference:   otpCreatedEvent.EventData.(map[string]interface{})["Reference"].(string),
-		DeviceReference: device_reference.(string),
-		Contact:         otpCreatedEvent.EventData.(map[string]interface{})["Contact"].(string),
-		Channel:         otpCreatedEvent.EventData.(map[string]interface{})["Channel"].(shared.Channel),
-		Type:            shared.Instant,
-		Subject:         "Walls OTP",
-		MessageBody:     "Hello, we are walking through the walls!",
-		NotifiedBy:      configuration.ServiceConfiguration.ServiceName,
-		NotifyOn:        time.Now().Format(time.RFC3339),
+			UserReference: otpCreatedEvent.EventData.(map[string]interface{})["Reference"].(string),
+			DeviceReference:   device_reference.(string),
+			Contact:         otpCreatedEvent.EventData.(map[string]interface{})["Contact"].(string),
+			Channel:         otpCreatedEvent.EventData.(map[string]interface{})["Channel"].(shared.Channel),
+			Subject:         otpCreatedEvent.EventData.(map[string]interface{})["Subject"].(string),
+			MessageBody:     otpCreatedEvent.EventData.(map[string]interface{})["MessageBody"].(string),
 	}
 
 	// Create an instance of the NotificationService
 
 	services.NotificationService.CreateNotification(createNotificationDto)
+	
 
 }

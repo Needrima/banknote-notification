@@ -6,6 +6,7 @@ type Notification struct {
 	Reference       string                    `json:"reference" bson:"reference"`
 	UserReference   string                    `json:"user_reference" bson:"user_reference"`
 	DeviceReference string                    `json:"device_reference" bson:"device_reference"`
+	From            string                    `json:"from" bson:"from"`
 	Contact         string                    `json:"contact" bson:"contact"`
 	Channel         shared.Channel            `json:"channel" bson:"channel"`
 	Type            shared.NotificationType   `json:"notification_type" bson:"notification_type"`

@@ -1,5 +1,6 @@
 package shared
 
+
 const (
 	Mobile DeviceType = iota
 	Tablet
@@ -15,8 +16,8 @@ const (
 	Sms_Email
 )
 const (
-	Pending NotificationStatus = iota
-	Sent
+    Pending NotificationStatus = iota
+	Sent 
 	Received
 	Failed
 )

@@ -6,37 +6,24 @@ definitions:
       contact:
         type: string
       device_reference:
+        maxLength: 38
+        minLength: 32
         type: string
       message_body:
-        type: string
-      notification_type:
-        $ref: '#/definitions/shared.NotificationType'
-      notified_by:
-        maxLength: 38
-        minLength: 26
-        type: string
-      notify_on:
         type: string
       subject:
         type: string
       user_reference:
         maxLength: 38
-        minLength: 26
+        minLength: 32
         type: string
     required:
     - channel
     - contact
+    - device_reference
     - message_body
-    - notification_type
-    - notified_by
-    - notify_on
     - subject
     - user_reference
-    type: object
-  helper.ErrorBody:
-    properties:
-      message:
-        description: Code    string      `json:"code"`
     type: object
   helper.ErrorResponse:
     properties:
@@ -48,7 +35,7 @@ definitions:
         type: string
       errors:
         items:
-          $ref: '#/definitions/helper.ErrorBody'
+          type: string
         type: array
       timestamp:
         type: string
@@ -57,18 +44,12 @@ definitions:
     enum:
     - 0
     - 1
+    - 2
     type: integer
     x-enum-varnames:
     - Sms
     - Email
-  shared.NotificationType:
-    enum:
-    - 0
-    - 1
-    type: integer
-    x-enum-varnames:
-    - Instant
-    - Scheduled
+    - Sms_Email
 info:
   contact: {}
 paths:

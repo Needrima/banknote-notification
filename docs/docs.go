@@ -191,10 +191,8 @@ const docTemplate = `{
             "required": [
                 "channel",
                 "contact",
+                "device_reference",
                 "message_body",
-                "notification_type",
-                "notified_by",
-                "notify_on",
                 "subject",
                 "user_reference"
             ],
@@ -206,20 +204,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "device_reference": {
-                    "type": "string"
-                },
-                "message_body": {
-                    "type": "string"
-                },
-                "notification_type": {
-                    "$ref": "#/definitions/shared.NotificationType"
-                },
-                "notified_by": {
                     "type": "string",
                     "maxLength": 38,
-                    "minLength": 26
+                    "minLength": 32
                 },
-                "notify_on": {
+                "message_body": {
                     "type": "string"
                 },
                 "subject": {
@@ -228,15 +217,7 @@ const docTemplate = `{
                 "user_reference": {
                     "type": "string",
                     "maxLength": 38,
-                    "minLength": 26
-                }
-            }
-        },
-        "helper.ErrorBody": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "description": "Code    string      ` + "`" + `json:\"code\"` + "`" + `"
+                    "minLength": 32
                 }
             }
         },
@@ -255,7 +236,7 @@ const docTemplate = `{
                 "errors": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/helper.ErrorBody"
+                        "type": "string"
                     }
                 },
                 "timestamp": {
@@ -267,22 +248,13 @@ const docTemplate = `{
             "type": "integer",
             "enum": [
                 0,
-                1
+                1,
+                2
             ],
             "x-enum-varnames": [
                 "Sms",
-                "Email"
-            ]
-        },
-        "shared.NotificationType": {
-            "type": "integer",
-            "enum": [
-                0,
-                1
-            ],
-            "x-enum-varnames": [
-                "Instant",
-                "Scheduled"
+                "Email",
+                "Sms_Email"
             ]
         }
     }

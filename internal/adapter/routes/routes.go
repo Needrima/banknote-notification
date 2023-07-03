@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"net/smtp"
 	docs "walls-notification-service/docs"
 	"walls-notification-service/internal/adapter/api"
 	configuration "walls-notification-service/internal/core/helper/configuration-helper"
@@ -14,17 +15,15 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
-	"github.com/sendgrid/sendgrid-go"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/twilio/twilio-go"
 )
 
-func SetupRouter(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smsClient *twilio.RestClient, emailClient *sendgrid.Client) *gin.Engine {
+func SetupRouter(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client) *gin.Engine {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
-	notificationService := services.NewNotification(notificationRepository, redisClient, smsClient, emailClient)
+	notificationService := services.NewNotification(notificationRepository, redisClient,smtpClient)
 
 	handler := api.NewHTTPHandler(notificationService)
 
