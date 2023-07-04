@@ -25,10 +25,11 @@ func main() {
 	logger.LogEvent("INFO", message.StartingRedis)
 	redisClient := extensions.StartEventBus("redis")
 	smtpClient := extensions.StartSmtp("google")
+	smsClient := extensions.StartSms("twilio")
 	ctx := context.Background()
 
 	//Set up routes
-	router := routes.SetupRouter(mongoRepo.(mongoRepository.MongoRepositories).Notification, redisClient,smtpClient)
+	router := routes.SetupRouter(mongoRepo.(mongoRepository.MongoRepositories).Notification, redisClient, smtpClient, smsClient)
 
 	config := configuration.ServiceConfiguration
 

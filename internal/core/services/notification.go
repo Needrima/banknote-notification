@@ -19,6 +19,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"
+	"github.com/twilio/twilio-go"
 )
 
 var NotificationService = &notificationService{}
@@ -27,13 +28,15 @@ type notificationService struct {
 	notificationRepository ports.NotificationRepository
 	redisClient            *redis.Client
 	smtpClient             *smtp.Client
+	smsClient              *twilio.RestClient
 }
 
-func NewNotification(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client) *notificationService {
+func NewNotification(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client, smsClient *twilio.RestClient) *notificationService {
 	NotificationService = &notificationService{
 		notificationRepository: notificationRepository,
 		redisClient:            redisClient,
 		smtpClient:             smtpClient,
+		smsClient:              smsClient,
 	}
 	return NotificationService
 }
@@ -55,19 +58,21 @@ func (service *notificationService) CreateNotification(createNotificationDto dto
 		},
 	}
 	//saves to database
-	response, err:=service.notificationRepository.CreateNotification(notification) 
+	response, err := service.notificationRepository.CreateNotification(notification)
 
-	if(err != nil){
+	if err != nil {
 		return nil, err
 	}
 
 	if notification.Channel == shared.Email {
 		//send to gmail smtp
-		emailSender:=sender.NewEmailNotification(service.smtpClient)
+		emailSender := sender.NewEmailNotification(service.smtpClient)
 		emailSender.SendEmailNotification(notification)
-	} //else if notification.Channel == shared.sms
-	
-	
+	} else if notification.Channel == shared.Sms {
+		smsSender := sender.NewSmsNotification(service.smsClient)
+		smsSender.SendSmsNotification(notification)
+	}
+
 	//publish to redis channel
 	eventPublisher := publisher.NewPublisher(service.redisClient)
 	ctx := context.Background()
@@ -76,7 +81,6 @@ func (service *notificationService) CreateNotification(createNotificationDto dto
 	return response, err
 
 }
-
 
 func (service *notificationService) GetNotificationByDeviceReference(device_reference string, page string) (interface{}, error) {
 	logger.LogEvent("INFO", "Getting the notification list for device "+device_reference)
@@ -98,9 +102,9 @@ func (service *notificationService) GetNotificationByReference(reference string)
 	return notification, nil
 }
 
-func (service *notificationService) GetNotificationByUserReference(user_reference string, page string) (interface{}, error) {
+func (service *notificationService) GetNotificationByUserReference(user_reference string) (interface{}, error) {
 	logger.LogEvent("INFO", "Getting notification by user reference: "+user_reference)
-	notification, err := service.notificationRepository.GetNotificationByUserReference(user_reference, page)
+	notification, err := service.notificationRepository.GetNotificationByUserReference(user_reference)
 
 	if err != nil {
 		return nil, err

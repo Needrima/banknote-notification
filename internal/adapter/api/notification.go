@@ -34,8 +34,6 @@ func (hdl *HTTPHandler) CreateNotification(c *gin.Context) {
 	c.JSON(201, gin.H{"reference": notification})
 }
 
-
-
 // @Summary Get Notification list by user device reference
 // @Description Retrieve the Notification list for a user's device
 // @Tags Notification
@@ -47,7 +45,7 @@ func (hdl *HTTPHandler) CreateNotification(c *gin.Context) {
 // @Param page path string true "Page"
 // @Router /api/notification/device/{device_reference}/{page} [get]
 func (hdl *HTTPHandler) GetNotificationByDeviceReference(c *gin.Context) {
-	notifications, err := hdl.notificationService.GetNotificationByDeviceReference(c.Param("device_reference"), c.Param("page"))
+	notifications, err := hdl.notificationService.GetNotificationByDeviceReference(c.Param("device-reference"), c.Param("page"))
 
 	if err != nil {
 		c.AbortWithStatusJSON(500, errorhelper.ErrorMessage(errorhelper.NoRecordError, err.Error()))
@@ -56,7 +54,6 @@ func (hdl *HTTPHandler) GetNotificationByDeviceReference(c *gin.Context) {
 
 	c.JSON(200, notifications)
 }
-
 
 // @Summary Get Notification list by user reference
 // @Description Retrieve the Notification list for a user
@@ -69,14 +66,16 @@ func (hdl *HTTPHandler) GetNotificationByDeviceReference(c *gin.Context) {
 // @Param device_reference path string true "Page"
 // @Router /api/notification/user/{user_reference}/{page} [get]
 func (hdl *HTTPHandler) GetNotificationByUserReference(c *gin.Context) {
-	notifications, err := hdl.notificationService.GetNotificationByUserReference(c.Param("user_reference"), c.Param("page"))
+	notification, err := hdl.notificationService.GetNotificationByUserReference(c.Param("user-reference"))
 
 	if err != nil {
 		c.AbortWithStatusJSON(500, errorhelper.ErrorMessage(errorhelper.NoRecordError, err.Error()))
 		return
 	}
 
-	c.JSON(200, notifications)
+	c.JSON(200, gin.H{
+		"reference" : notification,
+	})
 }
 
 // @Summary Get Notification by reference

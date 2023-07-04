@@ -7,28 +7,31 @@ import (
 )
 
 type ConfigStruct struct {
-	ServiceAddress     string `mapstructure:"Service__Address"`
-	ServicePort        string `mapstructure:"Service__Port"`
-	ServiceMode        string `mapstructure:"Service__Mode"`
-	ServiceName        string `mapstructure:"Service__Name"`
-	LogFile            string `mapstructure:"Service__LogFileName"`
-	LogDir             string `mapstructure:"Service__LogDirectory"`
-	LaunchUrl          string `mapstructure:"Service__LaunchUrl"`
-	AppName            string `mapstructure:"Service__AppName"`
-	Account            string `mapstructure:"Service__Account"`
-	Key                string `mapstructure:"Service__Key"`
-	DBConnectionString string `mapstructure:"DBConnection__ConnectionString"`
-	DBName             string `mapstructure:"DBConnection__DatabaseName"`
-	PageLimit          string `mapstructure:"DBConnection__PageLimit"`
-	DBConnectionType   string `mapstructure:"DBConnection__Type"`
-	EBConnectionString string `mapstructure:"EBConnection__ConnectionString"`
-	EBConnectionTTL    string `mapstructure:"EBConnection__TTl"`
-	ExternalConfigPath string `mapstructure:"external_config_path"`
-	NotificationExpiry string `mapstructure:"Service__NotificationExpiry"`
-	GoogleSmtpUsername string `mapstructure:"Google__SmtpUsername"`
-	GoogleSmtpPassword string `mapstructure:"Google__SmtpPassword"`
-	GoogleSmtpHost     string `mapstructure:"Google__SmtpHost"`
-	GoogleSmtpPort     string `mapstructure:"Google__SmtpPort"`
+	ServiceAddress        string `mapstructure:"Service__Address"`
+	ServicePort           string `mapstructure:"Service__Port"`
+	ServiceMode           string `mapstructure:"Service__Mode"`
+	ServiceName           string `mapstructure:"Service__Name"`
+	LogFile               string `mapstructure:"Service__LogFileName"`
+	LogDir                string `mapstructure:"Service__LogDirectory"`
+	LaunchUrl             string `mapstructure:"Service__LaunchUrl"`
+	AppName               string `mapstructure:"Service__AppName"`
+	Account               string `mapstructure:"Service__Account"`
+	Key                   string `mapstructure:"Service__Key"`
+	DBConnectionString    string `mapstructure:"DBConnection__ConnectionString"`
+	DBName                string `mapstructure:"DBConnection__DatabaseName"`
+	PageLimit             string `mapstructure:"DBConnection__PageLimit"`
+	DBConnectionType      string `mapstructure:"DBConnection__Type"`
+	EBConnectionString    string `mapstructure:"EBConnection__ConnectionString"`
+	EBConnectionTTL       string `mapstructure:"EBConnection__TTl"`
+	ExternalConfigPath    string `mapstructure:"external_config_path"`
+	NotificationExpiry    string `mapstructure:"Service__NotificationExpiry"`
+	GoogleSmtpUsername    string `mapstructure:"Google__SmtpUsername"`
+	GoogleSmtpPassword    string `mapstructure:"Google__SmtpPassword"`
+	GoogleSmtpHost        string `mapstructure:"Google__SmtpHost"`
+	GoogleSmtpPort        string `mapstructure:"Google__SmtpPort"`
+	TwilioAccountSID      string `mapstructure:"Twilio__AccountSID"`
+	TwilioAuthToken       string `mapstructure:"Twilio__AuthToken"`
+	TwilioAuthPhoneNumber string `mapstructure:"Twilio__Auth__PhoneNumber"`
 }
 
 func LoadEnv(path string) (config ConfigStruct, err error) {

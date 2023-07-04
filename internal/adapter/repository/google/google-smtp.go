@@ -13,7 +13,7 @@ func ConnectToGoogleSmtp() (*smtp.Client, error) {
 
 	// Set up authentication
 	auth := smtp.PlainAuth("", configuration.GoogleSmtpUsername, configuration.GoogleSmtpPassword, configuration.GoogleSmtpHost)
-    
+
 	// Connect to Google SMTP server
 	client, err := smtp.Dial(configuration.GoogleSmtpHost + ":" + configuration.GoogleSmtpPort)
 	if err != nil {

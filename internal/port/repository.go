@@ -8,5 +8,5 @@ type NotificationRepository interface {
 	CreateNotification(createNotificationDto entity.Notification) (interface{}, error)
 	GetNotificationByReference(reference string) (interface{}, error)
 	GetNotificationByDeviceReference(device_reference string, page string) (interface{}, error)
-	GetNotificationByUserReference(user_reference string, page string) (interface{}, error)
+	GetNotificationByUserReference(user_reference string) (interface{}, error)
 }

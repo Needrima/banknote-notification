@@ -1,12 +1,9 @@
 package sender
 
 import (
-	
 	"net/smtp"
 	"walls-notification-service/internal/core/domain/entity"
 	helper "walls-notification-service/internal/core/helper/smtp-helper"
-
-	
 )
 
 type EmailNotification struct {

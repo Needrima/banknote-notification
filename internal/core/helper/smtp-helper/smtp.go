@@ -5,7 +5,6 @@ import (
 	"walls-notification-service/internal/core/domain/entity"
 )
 
-
 type SmtpClient struct {
 	client *smtp.Client
 }
@@ -15,7 +14,6 @@ func NewSmtpClient(client *smtp.Client) *SmtpClient {
 		client: client,
 	}
 }
-
 
 func (s *SmtpClient) SendEmail(notification entity.Notification) error {
 	// Set the sender and recipient

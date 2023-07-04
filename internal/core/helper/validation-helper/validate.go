@@ -7,6 +7,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 )
+
 var (
 	validate *validator.Validate
 )
@@ -25,7 +26,7 @@ func Validate(data interface{}) error {
 	if err != nil {
 		var fieldErrors []validator.FieldError
 		logger.LogEvent("ERROR", "Error validating struct: "+err.Error())
-		
+
 		for _, errs := range err.(validator.ValidationErrors) {
 			fieldErrors = append(fieldErrors, errs)
 		}

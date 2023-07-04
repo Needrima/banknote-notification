@@ -17,13 +17,14 @@ import (
 	"github.com/redis/go-redis/v9"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/twilio/twilio-go"
 )
 
-func SetupRouter(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client) *gin.Engine {
+func SetupRouter(notificationRepository ports.NotificationRepository, redisClient *redis.Client, smtpClient *smtp.Client, smsClient *twilio.RestClient) *gin.Engine {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
-	notificationService := services.NewNotification(notificationRepository, redisClient,smtpClient)
+	notificationService := services.NewNotification(notificationRepository, redisClient, smtpClient, smsClient)
 
 	handler := api.NewHTTPHandler(notificationService)
 

@@ -67,13 +67,13 @@ func ErrorMessage(errorType string, message string) error {
 
 type ErrorBody struct {
 	//Code    string      `json:"code"`
-	Message string`json:"message"`
+	Message string `json:"message"`
 	//Source  string      `json:"source"`
 }
 type ErrorResponse struct {
-	ErrorReference uuid.UUID   `json:"error_reference"`
-	ErrorType      string      `json:"error_type"`
-	TimeStamp      string      `json:"timestamp"`
-	Code           int         `json:"code"`
-	Errors         []string `json:"errors"`
+	ErrorReference uuid.UUID `json:"error_reference"`
+	ErrorType      string    `json:"error_type"`
+	TimeStamp      string    `json:"timestamp"`
+	Code           int       `json:"code"`
+	Errors         []string  `json:"errors"`
 }
